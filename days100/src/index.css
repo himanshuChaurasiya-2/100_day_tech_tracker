@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #03040a;
+  --color-bg2: #070b14;
+  --color-card: #0c1120;
+  --color-card2: #101828;
+  --color-border: #162035;
+  --color-border2: #1e2e48;
+  --color-dsa: #00e5ff;
+  --color-devops: #ff3d6b;
+  --color-aws: #ffb800;
+  --color-purple: #a855f7;
+  --color-text: #e8f0fe;
+  --color-muted: #4a5a78;
+  --color-muted2: #7a8eaa;
+}
+
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  background: #03040a;
+  color: #e8f0fe;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #03040a; }
+::-webkit-scrollbar-thumb { background: #1e2e48; border-radius: 2px; }
+
+.modal-box::-webkit-scrollbar { width: 3px; }
+.modal-box::-webkit-scrollbar-track { background: #0c1120; }
+.modal-box::-webkit-scrollbar-thumb { background: #1e2e48; border-radius: 2px; }
+
+@keyframes gridDrift { 0%{background-position:0 0} 100%{background-position:70px 70px} }
+@keyframes orbPulse { 0%,100%{transform:scale(1);opacity:.18} 50%{transform:scale(1.12);opacity:.28} }
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes techGrad { 0%{background-position:0%} 100%{background-position:200%} }
+@keyframes marqRun { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes statusPulse { 0%,100%{box-shadow:none} 50%{box-shadow:0 0 18px rgba(0,229,255,.25)} }
+@keyframes scrollBob { 0%,100%{transform:translateX(-50%) translateY(0);opacity:1} 80%{transform:translateX(-50%) translateY(14px);opacity:0} }
+@keyframes ringFill { from { stroke-dashoffset: 817; } }
+
+.animate-grid-drift { animation: gridDrift 20s linear infinite; }
+.animate-orb-pulse { animation: orbPulse 10s ease-in-out infinite; }
+.animate-fade-slide-up { animation: fadeSlideUp 0.9s ease both; }
+.animate-tech-grad { animation: techGrad 4s linear infinite; background-size: 200% 100%; }
+.animate-marq { animation: marqRun 28s linear infinite; }
+.animate-blink { animation: blink 1.4s ease-in-out infinite; }
+.animate-status-pulse { animation: statusPulse 3s ease-in-out infinite; }
+.animate-scroll-bob { animation: scrollBob 2.2s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(0,229,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.028) 1px, transparent 1px);
+  background-size: 70px 70px;
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 45%, black 30%, transparent 100%);
+}
+
+.border-grad-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00e5ff, #ff3d6b, #ffb800, #00e5ff);
+  background-size: 300% 100%;
+  animation: techGrad 5s linear infinite;
+}
+
+.font-bebas { font-family: 'Bebas Neue', sans-serif; }
+.font-mono-jetbrains { font-family: 'JetBrains Mono', monospace; }
+.font-outfit { font-family: 'Outfit', sans-serif; }
+
+.text-grad-tech {
+  background: linear-gradient(100deg, #ff3d6b 0%, #ffb800 50%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-grad-ring {
+  background: linear-gradient(90deg, #00e5ff, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-glow-dsa:hover { box-shadow: 0 0 80px rgba(0,229,255,0.2); border-color: rgba(0,229,255,0.35) !important; }
+.card-glow-devops:hover { box-shadow: 0 0 80px rgba(255,61,107,0.2); border-color: rgba(255,61,107,0.35) !important; }
+.card-glow-aws:hover { box-shadow: 0 0 80px rgba(255,184,0,0.2); border-color: rgba(255,184,0,0.35) !important; }
