@@ -5,7 +5,7 @@ import { Challenge } from '../models/challenges.js';
 const router = express.Router();
 
 // Public: Fetch the absolute latest challenge submitted
-router.get('/api/challenges/featured', async (req, res) => {
+router.get('/challenges/featured', async (req, res) => {
   try {
     // Finds the document with the highest day tracker number
     const latestChallenge = await Challenge.findOne()

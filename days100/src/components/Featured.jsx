@@ -7,28 +7,37 @@ function CodeWindow({ code }) {
 
   return (
     <div
-      className="rounded-2xl !p-6 overflow-x-auto bg-[#050810] border border-border"
+      className="rounded-2xl !p-3 overflow-x-auto bg-bg/60 border border-border2"
     >
-      <div className="flex items-center gap-2 !mb-2">
+      <div className="flex items-center gap-1 !mb-2">
         <div className="w-3 h-3 rounded-full bg-[#ff5f57]"/>
         <div className="w-3 h-3 rounded-full bg-[#febc2e]"/>
         <div className="w-3 h-3 rounded-full bg-[#28c840]"/>
         <span
-          className="font-mono-jetbrains text-[0.56rem] tracking-[1.5px] ml-auto text-muted"
+          className="font-mono-jetbrains text-xs tracking-[1px] ml-auto text-muted"
         >
           Source Code
         </span>
       </div>
 
       <pre
-        className="font-mono-jetbrains text-[0.74rem] leading-loose whitespace-pre-wrap text-text"
+        className="font-mono-jetbrains text-sm  whitespace-pre-line text-text/70"
       >
         {code.split('\n').map((line, i) => {
-          const highlighted = line
-            .replace(/(import|def|for|in|if|else|return|const|let|function|async|await)/g, '<span style="color:#c792ea">$1</span>')
-            .replace(/\b(\d+)\b/g, '<span style="color:#ffb800">$1</span>')
-            .replace(/(\/\/.*$|#.*$)/g, '<span style="color:#3d5266">$1</span>')
-            .replace(/\b(bisect_left|bisect|append|print|range|len|log|map|filter|reduce)\b/g, '<span style="color:#82aaff">$1</span>')
+
+          const escapedLine = line
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+            
+          const highlighted = escapedLine.replace(
+      /(import|def|for|in|if|else|return|const|let|function|async|await)\b|\b(\d+)\b|(\/\/.*$|#.*$)/g,
+      (match, keyword, number, comment) => {
+        if (keyword) return `<span style="color:#c792ea">${keyword}</span>`;
+        if (number)  return `<span style="color:#ffb800">${number}</span>`;
+        if (comment) return `<span style="color:#3d5266">${comment}</span>`;
+        return match;
+      } )
           return (
             <span
               key={i}
@@ -65,7 +74,7 @@ export default function Featured() {
     return (
       <section id="featured" className="!py-10 !px-14 bg-bg2">
         <SectionHeader eyebrow="Spotlight" title="Today's Challenge" />
-        <div className="w-full h-64 rounded-3xl animate-pulse flex items-center justify-center text-xs font-mono-jetbrains text-[#4a5a78] text-muted bg-card border border-border">
+        <div className="w-full h-64 rounded-3xl animate-pulse flex items-center justify-center text-xs font-mono-jetbrains text-muted bg-card border border-border">
           SYNCING TODAY'S CHALLENGE NODE...
         </div>
       </section>
@@ -76,11 +85,11 @@ export default function Featured() {
 
   return (
     <>
-    <section id="featured" className="!py-10 !px-14 bg-bg2">
+    <section id="featured" className="!py-4 !px-14 bg-bg2">
       <SectionHeader eyebrow="Spotlight" title="Today's Challenge" />
 
       <div
-        className="rounded-2xl !p-14 grid grid-cols-1 md:grid-cols-2 gap-14 items-center relative overflow-hidden border-grad-top border border-border bg-card border-grad-top mt-0"
+        className="rounded-2xl !p-4 grid grid-cols-1 md:grid-cols-2 gap-2 items-center relative overflow-hidden border-grad-top border border-border bg-card border-grad-top"
       >
         <div
           className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-dsa via-devops to-aws animate-tech-grad bg-[length:300%_100%]"
@@ -88,15 +97,15 @@ export default function Featured() {
 
         <div className="w-full">
           <span
-            className="font-mono-jetbrains text-[0.6rem] tracking-[2.5px] uppercase block !mb-2 text-dsa"
+            className="font-mono-jetbrains text-xs tracking-[1.5px] uppercase block !mb-1 text-dsa"
           >
-            Day {featured.day} · {featured.tech}
+            Day {featured.day}·{featured.tech}
           </span>
-          <h3 className="font-bebas text-5xl tracking-wide leading-none !mb-3 text-text">
+          <span className="font-bebas text-3xl leading-none text-text">
             {featured.title}
-          </h3>
+          </span>
           <p
-            className="text-[0.9rem] leading-loose !mb-4 whitespace-pre-wrap text-muted2"
+            className="text-s leading-loose !mb-2 whitespace-pre-wrap text-muted2"
           >
             {featured.pro_statement}
           </p>
@@ -106,7 +115,7 @@ export default function Featured() {
               {featured.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="font-mono-jetbrains text-[0.56rem] !px-3 !py-1 rounded-full bg-white/3 text-muted border border-border whitespace-nowrap uppercase tracking-wider"
+                  className="font-mono-jetbrains text-xs !px-3 !py-1 rounded-full bg-bg2/3 text-muted2 border border-border whitespace-nowrap uppercase tracking-wider"
                 >
                   {tag}
                 </span>

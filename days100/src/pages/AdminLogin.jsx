@@ -73,7 +73,7 @@ export default function AdminLogin({ onLoginSuccess, token }) {
               value={password} 
               onChange={e => setPassword(e.target.value)} 
               placeholder="••••••••••••"
-              className="w-full rounded-xl !py-2.5 !px-4 text-center text-sm outline-none tracking-widest transition-all duration-200 bg-[#121829] border border-border2 text-dsa focus:border-dsa disabled:opacity-50" 
+              className="w-full rounded-xl !py-2.5 !px-4 text-center text-sm outline-none tracking-widest transition-all duration-200 bg-bg3 border border-border2 text-dsa focus:border-dsa disabled:opacity-50" 
               onFocus={e => (e.target.style.borderColor = '#00e5ff')}
               onBlur={e => (e.target.style.borderColor = '#1e2e48')}
             />

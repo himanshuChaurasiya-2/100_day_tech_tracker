@@ -20,7 +20,7 @@ import MetaSEO from './components/MetaSEO.jsx'
 function BaseLayout({ onOpenModal }) {
   return (
     <>
-    <div className="bg-bg text-text min-h-screen overflow-hidden">
+    <div className="bg-bg text-text overflow-hidden">
       <Cursor />
       <Navbar />
       <Outlet />

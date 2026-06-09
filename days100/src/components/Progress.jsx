@@ -42,14 +42,11 @@ function RingChart({ daysDone, total }) {
       </svg>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
         <span
-          className="font-bebas text-7xl leading-none block"
-          style={{ color: '#00e5ff', letterSpacing: '-1px' }}
-        >
+          className="font-bebas text-7xl leading-none block text-dsa tracking-[1px]">
           {percentage}%
         </span>
         <span
-          className="font-mono-jetbrains text-[0.54rem] tracking-[3px] uppercase"
-          style={{ color: '#4a5a78' }}
+          className="font-mono-jetbrains text-[0.54rem] tracking-[3px] uppercase text-muted"
         >
           Complete
         </span>
@@ -66,16 +63,12 @@ function MiniCards({ items }) {
       {items?.map(({ value, label, color }) => (
         <div
           key={label}
-          className="rounded-2xl !py-4 !px-3 text-center"
-          style={{ background: '#0c1120', border: '1px solid #162035' }}
-        >
+          className="rounded-2xl !py-4 !px-3 text-center bg-card border border-border">
           <span className="font-bebas text-4xl tracking-wide block" style={{ color }}>
             {value}
           </span>
           <span
-            className="font-mono-jetbrains text-[0.5rem] tracking-[1.5px] uppercase block mt-1"
-            style={{ color: '#4a5a78' }}
-          >
+            className="font-mono-jetbrains text-[0.5rem] tracking-[1.5px] uppercase block mt-1 text-muted">
             {label}
           </span>
         </div>
@@ -88,12 +81,10 @@ function MiniCards({ items }) {
 function Heatmap({ cells }) {
   return (
     <>
-    <div className="rounded-3xl !p-6" style={{ background: '#0c1120', border: '1px solid #162035' }}>
-      <div className="font-outfit font-extrabold text-lg !mb-1">Activity Heatmap</div>
+    <div className="rounded-2xl !p-3 bg-card border border-border">
+      <div className="font-outfit font-extrabold text-lg !mb-1 whitespace-nowrap">Activity Heatmap</div>
       <span
-        className="font-mono-jetbrains text-[0.56rem] tracking-[2px] uppercase block !mb-4"
-        style={{ color: '#4a5a78' }}
-      >
+        className="font-mono-jetbrains text-[0.56rem] tracking-[1px] uppercase block !mb-2 text-muted whitespace-nowrap">
         100-Day Challenge Overview
       </span>
 
@@ -109,11 +100,11 @@ function Heatmap({ cells }) {
       </div>
 
       <div className="flex items-center gap-1.5 justify-end !mt-2">
-        <span className="font-mono-jetbrains text-[0.54rem]" style={{ color: '#4a5a78' }}>Less</span>
+        <span className="font-mono-jetbrains text-[0.54rem] text-muted">Less</span>
         {LEVEL_COLORS.map((c, i) => (
           <div key={i} className="w-3 h-3 rounded-sm" style={{ background: c }} />
         ))}
-        <span className="font-mono-jetbrains text-[0.54rem]" style={{ color: '#4a5a78' }}>More</span>
+        <span className="font-mono-jetbrains text-[0.54rem] text-muted">More</span>
       </div>
     </div>
     </>
@@ -147,8 +138,8 @@ export default function Progress() {
   if (loading) {
     return (
       <>
-      <section id="progress" className="!py-10 !px-14 flex items-center justify-center min-h-[440px]" style={{ background: '#03040a' }}>
-        <div className="font-mono-jetbrains text-xs tracking-[2px] text-[#4a5a78]">
+      <section id="progress" className="!py-10 !px-14 flex items-center justify-center min-h-[440px] bg-bg">
+        <div className="font-mono-jetbrains text-xs tracking-[2px] text-muted">
           CALCULATING DASHBOARD ANALYTICS...
         </div>
       </section>
@@ -158,14 +149,14 @@ export default function Progress() {
 
   return (
     <>
-    <section id="progress" className="!py-10 !px-14" style={{ background: '#03040a' }}>
+    <section id="progress" className="!py-4 !px-14 bg-bg">
       <SectionHeader
         eyebrow="Stats"
         title="Progress Board"
         subtitle={`${metrics.daysDone} days deep. The grind is visible — every day tracked, every topic covered.`}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Ring + Mini cards */}
         <div className="flex flex-col items-center gap-8">
           <RingChart daysDone={metrics.daysDone} total={metrics.total} />

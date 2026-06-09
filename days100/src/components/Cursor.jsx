@@ -45,12 +45,12 @@ export default function Cursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 bg-[#00e5ff] rounded-full pointer-events-none z-[9999] mix-blend-screen will-change-transform"
+        className="fixed top-0 left-0 w-2 h-2 bg-dsa rounded-full pointer-events-none z-[9999] mix-blend-screen will-change-transform"
         style={{ transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)' }}
       />
       <div
         ref={trailRef}
-        className="fixed top-0 left-0 w-8 h-8 border-[1px] border-[#00e5ff]/35 rounded-full pointer-events-none z-[9998] will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 border-[1px] border-dsa/35 rounded-full pointer-events-none z-[9998] will-change-transform"
         style={{ transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)' }}
       />
     </>

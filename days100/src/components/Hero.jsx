@@ -19,7 +19,7 @@ function StatItem({ value, label, textColorClass }) {
         {value}
       </span>
       <span
-        className="font-mono-jetbrains text-[0.56rem] tracking-[3px] uppercase block text-muted"
+        className="font-mono-jetbrains text-[0.56rem] tracking-[1px] uppercase block text-muted"
       >
         {label}
       </span>
@@ -66,7 +66,7 @@ export default function Hero() {
     <>
     <section
       id="hero"
-      className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center text-center"
+      className="relative overflow-hidden flex flex-col items-center justify-center text-center"
       style={{ padding: '90px 52px 60px' }}
     >
 
@@ -116,14 +116,14 @@ export default function Hero() {
         <div
           className="inline-flex items-center gap-3 font-mono-jetbrains text-[0.65rem] tracking-[3.5px] uppercase animate-fade-slide-up text-dsa"
         >
-         <div 
+          <div 
           className="font-bebas text-[18rem] leading-none tracking-1 text-transparent absolute top-0 left-1/2 -translate-x-1/2 -translate-y-10 select-none pointer-events-none whitespace-nowrap animate-fade-slide-up"
           style={{ WebkitTextStroke: '2px rgba(0,229,255,.15)' }}
-         >
+          >
           100
-        </div>
+          </div>
           <span className="w-7 h-px inline-block bg-dsa"/>
-          The 100-Day Tech Grind is Real
+          <p>The 100-Day Tech Grind is Real</p>
           <span className="w-7 h-px inline-block bg-dsa"/>
         </div>
 
@@ -151,7 +151,7 @@ export default function Hero() {
 
         {/* Description */}
         <p
-          className="max-w-lg !mx-auto !m-6 text-base leading-relaxed animate-fade-slide-up delay-300 text-muted2 pointer-events-none select-none"
+          className="max-w-lg !mx-auto !m-4 text-base leading-relaxed animate-fade-slide-up delay-300 text-muted2 pointer-events-none select-none"
         >
           One challenge every single day. No skipping, no cap — raw algorithms, real pipelines,
           and cloud infra. All documented and searchable.
@@ -161,7 +161,7 @@ export default function Hero() {
         <div className="flex gap-4 justify-center flex-wrap animate-fade-slide-up delay-400">
           <a
             href="#challenges"
-            className="inline-block text-center !px-9 !py-4 rounded-xl font-outfit font-extrabold text-base tracking-tight bg-dsa text-black transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(0,229,255,0.45)] relative overflow-hidden"
+            className="inline-block text-center !px-9 !py-4 rounded-xl font-outfit font-extrabold text-base tracking-tight bg-dsa text-black transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(0,229,255,0.45)] relative overflow-hidden whitespace-nowrap"
           >
             Browse Challenges →
           </a>
@@ -186,7 +186,6 @@ export default function Hero() {
           <StatItem value={daysLeft} label="Days Left" textColorClass="text-aws" />
         </div>
       </div>
-
       {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-fade-slide-up delay-700 pointer-events-none select-none">
         <div className="w-6 h-9 rounded-xl relative border-[1.5px] border-border2">
@@ -200,6 +199,7 @@ export default function Hero() {
           Scroll
         </span>
       </div>
+
     </section>
     </>
   )

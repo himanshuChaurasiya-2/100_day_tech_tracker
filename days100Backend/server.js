@@ -35,10 +35,14 @@ app.use(cors({
 
 
 // API Base Routes
-app.use(challengeRoutes);
-app.use(adminRoutes);
-app.use(progressRoutes);
-app.use(featuredRoutes);
+// app.use(challengeRoutes);
+// app.use(adminRoutes);
+// app.use(progressRoutes);
+// app.use(featuredRoutes);
+app.use('/api', featuredRoutes);   // Handles '/api/challenges/featured' safely first!
+app.use('/api', challengeRoutes);  // Handles '/api/challenges' and '/api/challenges/:id'
+app.use('/api', adminRoutes);
+app.use('/api', progressRoutes);
 
 // Catch-All 404 Route handler
 app.use('*any', (req, res) => {

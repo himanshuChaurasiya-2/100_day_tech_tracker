@@ -4,7 +4,7 @@ import { Challenge } from '../models/challenges.js';
 
 const router = express.Router();
 
-router.get('/api/progress', async (req, res) => {
+router.get('/progress', async (req, res) => {
   try {
     const TOTAL_DAYS = 100;
 

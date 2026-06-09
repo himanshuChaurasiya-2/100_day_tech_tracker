@@ -7,7 +7,7 @@ function TrackCard({ track }) {
   return (
     <>
     <div
-      className="group rounded-3xl !p-10 relative overflow-hidden bg-card border border-border cursor-none transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_0_80px_var(--track-glow)]" style={{
+      className="group rounded-3xl !p-6 relative overflow-hidden bg-card border border-border cursor-none transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_0_80px_var(--track-glow)]" style={{
         '--track-glow': track.glowColor,
         '--track-color': track.color,
       }}
@@ -37,12 +37,12 @@ function TrackCard({ track }) {
       </div>
 
       <div
-        className="font-mono-jetbrains text-[0.58rem] tracking-[2px] uppercase !mb-2 text-muted"
+        className="font-mono-jetbrains text-[0.58rem] tracking-[2px] uppercase !mb-1 text-muted"
       >
         {track.fullName}
       </div>
 
-      <p className="text-[0.88rem] leading-relaxed !mb-4 text-muted2">
+      <p className="text-[0.88rem] leading-relaxed !mb-2 text-muted2">
         {track.desc}
       </p>
 

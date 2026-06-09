@@ -6,7 +6,7 @@ const TECH_CONFIG = {
   AWS:    { color: '#ffb800', bg: 'rgba(255,184,0,.1)'   },
 }
 
-export default function Modal({ challenge, onClose }) {
+export default function Modal({ challenge, onClose, isFetchingDetails }) {
   const isOpen = !!challenge
 
   useEffect(() => {
@@ -27,18 +27,18 @@ export default function Modal({ challenge, onClose }) {
   return (
     <>
     <div
-      className="fixed inset-0 z-[800] flex items-center justify-center transition-opacity duration-300 bg-bg/90 backdrop-blur-xl"
+      className="fixed inset-0 z-[800] flex items-center justify-center transition-opacity duration-300 bg-bg/60 backdrop-blur-xl !p-4 "
       style={{
         opacity: isOpen ? 1 : 0,
       }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
-        className="modal-box relative !p-6 rounded-3xl max-w-2xl w-full overflow-y-auto bg-card border border-border2 max-h-[84vh] transition-transform duration-300 translate-y-0"
+        className="relative w-full max-w-sm sm:max-w-xl md:max-w-2xl overflow-y-auto bg-card border border-border2 max-h-[90vh] rounded-3xl !p-5 sm:p-6 shadow-2xl block"
       >
 
         <div
-          className="absolute top-0 left-0 right-0 h-0.5 rounded-t-3xl bg-gradient-to-r from-dsa to-[#a855f7]" 
+          className="absolute top-0 left-0 right-0 h-0.5 rounded-t-3xl bg-gradient-to-r from-devops to-dsa" 
         />
 
         <button
@@ -48,42 +48,91 @@ export default function Modal({ challenge, onClose }) {
           ✕
         </button>
 
-        <div className="flex items-center gap-2 !mb-1">
+        <div className="flex items-center gap-1 !mb-1">
           <span
-            className="font-mono-jetbrains text-[0.6rem] tracking-[2px] text-muted"
+            className="font-mono-jetbrains text-[0.7rem] tracking-[1px] text-muted"
           >
             Day {String(challenge.day).padStart(2, '0')}
           </span>
           <span
-            className="font-mono-jetbrains text-[0.5rem] !px-2 !py-0.5 rounded uppercase tracking-wide"
+            className="font-mono-jetbrains text-[0.6rem] !px-2 !py-0.5 rounded uppercase tracking-wide"
             style={{ background: cfg.bg, color: cfg.color }}
           >
             {challenge.tech}
           </span>
         </div>
 
-        <h2 className="font-bebas text-3xl tracking-wide leading-none !mb-4 text-[#e8f0fe]">
+        <h2 className="font-bebas text-3xl tracking-wide leading-none text-text">
           {challenge.title}
         </h2>
 
-        <div className="text-[0.9rem] leading-loose text-muted2 modal-answer">
-          
-          {challenge.pro_statement && (
-            <div className="!mb-4">
-              <h4>Probelm Statement</h4>
-              <p className="whitespace-pre-line">{challenge.pro_statement}</p>
-            </div>
-          )}
+        {isFetchingDetails && !challenge.code ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3 w-full">
+            <div 
+              className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" 
+              style={{ borderColor: `${cfg.color} ` }}
+            />
+            <span className="font-mono-jetbrains text-[0.58rem] text-muted tracking-[2px] uppercase animate-pulse">
+              Hydrating Solution...
+            </span>
+          </div>
+        ) : (
+          <div className="text-[0.85rem] sm:text-[0.9rem] leading-loose text-muted2 modal-answer flex-1 animate-fade-slide-up">
+            
+            {/* Problem Statement Block */}
+            {challenge.pro_statement && (
+              <div >
+                <h4>Problem Statement</h4>
+                <p className="whitespace-pre-line text-muted2 font-mono sm:text-sm bg-bg2/20 rounded-xl !p-2 border border-border leading-relaxed">
+                  {challenge.pro_statement}
+                </p>
+              </div>
+            )}
 
-          {challenge.code && (
-            <div>
-              <h4>Solution</h4>
-              <pre className="m-code">
-                <code>{challenge.code}</code>
-              </pre>
-            </div>
-          )}
-        </div>
+            {/* Source Solution Syntax Container */}
+            {challenge.code && (
+              <div className="flex flex-col w-full">
+                <h4>Solution</h4>
+                <div className="rounded-2xl border border-border overflow-hidden bg-bg/20 w-full">
+                  {/* Pseudo code console task header line accent block */}
+                  <div className="flex items-center justify-between !px-2 !py-2 bg-bg/30 border-b border-border  select-none">
+                    <span className='font-mono-jetbrains '>solution.{challenge.tech === 'DSA' ? 'js' : 'sh'}</span>
+                    <span className="text-dsa opacity-90 font-mono-jetbrains uppercase tracking-[1px] text-[0.7rem]">
+                      Active Sync
+                    </span>
+                  </div>
+                    
+                    <pre
+                      className="font-mono-jetbrains text-sm leading-loose whitespace-pre-wrap text-text/70 !px-2"
+                    >
+                      {challenge.code.split('\n').map((line, i) => {
+
+                        const escapedLine = line
+                          .replace(/&/g, '&amp;')
+                          .replace(/</g, '&lt;')
+                          .replace(/>/g, '&gt;');
+                          
+                        const highlighted = escapedLine.replace(
+                          /(import|def|for|in|if|else|return|const|let|function|async|await)\b|\b(\d+)\b|(\/\/.*$|#.*$)/g,
+                          (match, keyword, number, comment) => {
+                            if (keyword) return `<span style="color:#c792ea">${keyword}</span>`;
+                            if (number)  return `<span style="color:#ffb800">${number}</span>`;
+                            if (comment) return `<span style="color:#3d5266">${comment}</span>`;
+                            return match;
+                          } )
+                        return (
+                          <span
+                            key={i}
+                            dangerouslySetInnerHTML={{ __html: highlighted + '\n' }}
+                          />
+                        )
+                      })}
+                    </pre>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {challenge.tags && challenge.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 !mt-4">

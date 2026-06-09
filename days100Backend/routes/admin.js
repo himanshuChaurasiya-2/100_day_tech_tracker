@@ -7,7 +7,7 @@ import { verifyAdminToken } from '../middleware/auth.js';
 const router = express.Router();
 
 // Password-only login endpoint
-router.post('/api/admin/login', async (req, res) => {
+router.post('/admin/login', async (req, res) => {
   try {
     const { password } = req.body;
 
@@ -34,7 +34,7 @@ router.post('/api/admin/login', async (req, res) => {
 });
 
 // Get all challenges for admin list view
-router.get('/api/admin/challenges', verifyAdminToken, async (req, res) => {
+router.get('/admin/challenges', verifyAdminToken, async (req, res) => {
   try {
     const challenges = await Challenge.find().sort({ day: 1 });
     res.json(challenges);
@@ -44,7 +44,7 @@ router.get('/api/admin/challenges', verifyAdminToken, async (req, res) => {
 });
 
 // Create new challenge from pop-up form
-router.post('/api/admin/challenges', verifyAdminToken, async (req, res) => {
+router.post('/admin/challenges', verifyAdminToken, async (req, res) => {
   try {
     const { day, tech, title, diff, code, pro_statement, tags } = req.body;
 
@@ -66,7 +66,7 @@ router.post('/api/admin/challenges', verifyAdminToken, async (req, res) => {
 });
 
 // Update existing challenge from pop-up form
-router.put('/api/admin/challenges/:id', verifyAdminToken, async (req, res) => {
+router.put('/admin/challenges/:id', verifyAdminToken, async (req, res) => {
   try {
     const updated = await Challenge.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after', runValidators: true });
     if (!updated) return res.status(404).json({ error: 'Target challenge reference missing.' });
@@ -77,7 +77,7 @@ router.put('/api/admin/challenges/:id', verifyAdminToken, async (req, res) => {
 });
 
 // Delete challenge
-router.delete('/api/admin/challenges/:id', verifyAdminToken, async (req, res) => {
+router.delete('/admin/challenges/:id', verifyAdminToken, async (req, res) => {
   try {
     const deleted = await Challenge.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ error: 'Target challenge reference missing.' });

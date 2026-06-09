@@ -3,7 +3,7 @@ export default function SectionHeader({ eyebrow, title, subtitle }) {
     <>
     <div className="mb-0">
       <div
-        className="font-mono-jetbrains text-[0.6rem] tracking-[3.5px] uppercase flex items-center gap-3 !mb-2 text-muted"
+        className="font-mono-jetbrains font-bold text-xs tracking-[3px] uppercase flex items-center gap-3 !mb-2 text-muted"
       >
         <span className="w-5 h-px inline-block bg-muted"/>
         {eyebrow}
