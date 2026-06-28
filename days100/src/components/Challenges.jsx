@@ -164,16 +164,21 @@ export default function Challenges({ onOpenModal }) {
         </div>
 
         <div className='w-full'>
-          {challenges.length === 0 && !loading ? (
-            <div className="font-mono-jetbrains text-[0.72rem] tracking-[1.5px] text-center !py-16 text-muted">
-              No challenges found 🔍
+          {loading && challenges.length === 0 ? (
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(350px,1fr))]">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="rounded-2xl !p-5 bg-card border border-border animate-pulse">
+                  <div className="h-3 bg-border2 rounded w-16 !mb-3"/>
+                  <div className="h-5 bg-border2 rounded w-3/4 !mb-2"/>
+                  <div className="h-3 bg-border2 rounded w-full !mb-1"/>
+                  <div className="h-3 bg-border2 rounded w-2/3"/>
+                </div>
+              ))}
             </div>
           ) : (
             <div 
               className={`grid gap-3 sm:gap-4 transition-opacity duration-200 
-              grid-cols-1 
-              sm:grid-cols-[repeat(auto-fill,minmax(350px,1fr))] 
-              ${loading ? 'opacity-40' : 'opacity-100'}`}
+              grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(350px,1fr))] ${loading ? 'opacity-40' : 'opacity-100'}`}
             >
               {challenges.map((c, i) => (
                 <ChallengeCard

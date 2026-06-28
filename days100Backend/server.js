@@ -8,6 +8,8 @@ import adminRoutes from './routes/admin.js';
 import progressRoutes from './routes/progress.js'
 import featuredRoutes from './routes/featured.js'
 
+import { Challenge } from './models/challenges.js';
+
 dotenv.config();
 
 const app = express();
@@ -39,21 +41,23 @@ app.use('/api', progressRoutes);
 
 app.use('*any', (req, res) => {
   res.status(404).json({ error: 'Endpoint path not found.' });
-});
-
-// Ping MongoDB every 5 minutes to prevent Atlas M0 pause
-const keepAlive = () => {
-  challengeRoutes.find().select('_id').lean()
-    .then(() => console.log('Atlas keepalive OK'))
-    .catch(err => console.error('Keepalive failed:', err))
-}
-setInterval(keepAlive, 5 * 60 * 1000) 
+}); 
 
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
     await connectDB();
+    
+    // Ping MongoDB every 5 minutes to prevent Atlas M0 pause
+    const keepAlive = () => {
+      Challenge.findOne().select('_id').lean()
+        .then(() => console.log('Atlas keepalive'))
+        .catch(err => console.error('Keepalive failed:', err.message))
+    }
+    keepAlive();
+    setInterval(keepAlive, 5 * 60 * 1000)
+
     app.listen(PORT, () => {
       console.log(`🚀 API active and listening on port ${PORT}`);
     });
