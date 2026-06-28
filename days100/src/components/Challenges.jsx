@@ -177,7 +177,7 @@ export default function Challenges({ onOpenModal }) {
             >
               {challenges.map((c, i) => (
                 <ChallengeCard
-                  key={c._id || c.day}
+                  key={c._id}
                   challenge={c}
                   onClick={() => handleChallengeClick(c)}
                   animDelay={i * 0.05}

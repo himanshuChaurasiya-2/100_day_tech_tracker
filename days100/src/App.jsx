@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect  } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 
 import Cursor from './components/Cursor.jsx'
@@ -14,6 +14,7 @@ import Footer from './components/Footer.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
 import RouteGuard from './components/RouteGuard.jsx'
 import AdminDashboard from './components/AdminDashboard.jsx'
+import {API_BASE_URL} from './config/api.js'
 
 import MetaSEO from './components/MetaSEO.jsx'
 
@@ -31,14 +32,33 @@ function BaseLayout({ onOpenModal }) {
 }
 
 function HomeView({ setActiveChallenge }) {
+
+  const [metrics, setMetrics] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProgressData = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/progress`);
+        const data = await res.json();
+        setMetrics(data);
+      } catch (err) {
+        console.error('Failed fetching progress data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProgressData();
+  }, []);
+
   return (
     <>
     <main className="pt-16">
-      <Hero />
+      <Hero metrics={metrics}/>
       <Marquee />
       <Tracks />
       <Challenges onOpenModal={setActiveChallenge} />
-      <Progress />
+      <Progress metrics={metrics} loading={loading} />
       <Featured />
     </main>
     </>

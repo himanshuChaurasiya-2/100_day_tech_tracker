@@ -14,10 +14,9 @@ const app = express();
 
 app.use(express.json());
 
-// Look for this block inside your backend server.js / app.js file
 const allowedOrigins = [
   'http://localhost:3000', 
-  process.env.FRONTEND_URL // 🌟 IT IS LOCATED RIGHT HERE!
+  process.env.FRONTEND_URL
 ];
 
 app.use(cors({
@@ -33,21 +32,22 @@ app.use(cors({
 }));
 
 
-
-// API Base Routes
-// app.use(challengeRoutes);
-// app.use(adminRoutes);
-// app.use(progressRoutes);
-// app.use(featuredRoutes);
-app.use('/api', featuredRoutes);   // Handles '/api/challenges/featured' safely first!
-app.use('/api', challengeRoutes);  // Handles '/api/challenges' and '/api/challenges/:id'
+app.use('/api', featuredRoutes);
+app.use('/api', challengeRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', progressRoutes);
 
-// Catch-All 404 Route handler
 app.use('*any', (req, res) => {
   res.status(404).json({ error: 'Endpoint path not found.' });
 });
+
+// Ping MongoDB every 5 minutes to prevent Atlas M0 pause
+const keepAlive = () => {
+  challengeRoutes.find().select('_id').lean()
+    .then(() => console.log('Atlas keepalive OK'))
+    .catch(err => console.error('Keepalive failed:', err))
+}
+setInterval(keepAlive, 5 * 60 * 1000) 
 
 const PORT = process.env.PORT || 5000;
 

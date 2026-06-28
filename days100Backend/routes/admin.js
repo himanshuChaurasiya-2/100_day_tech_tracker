@@ -25,7 +25,6 @@ router.post('/admin/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid console access password.' });
     }
 
-    // Issue standard authorization token valid for 4 hours
     const token = jwt.sign({ role: 'sole_admin' }, process.env.JWT_SECRET, { expiresIn: '4h' });
     res.json({ token });
   } catch (error) {

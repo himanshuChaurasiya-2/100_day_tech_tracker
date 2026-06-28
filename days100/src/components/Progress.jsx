@@ -111,30 +111,8 @@ function Heatmap({ cells }) {
   )
 }
 
-export default function Progress() {
-  const [metrics, setMetrics] = useState({
-    daysDone: 0,
-    total: 100,
-    miniCards: [],
-    heatmap: []
-  })
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const loadProgressBoard = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/progress`)
-        const data = await res.json()
-        setMetrics(data)
-      } catch (err) {
-        console.error('Failed to parse stats payload:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadProgressBoard()
-  }, [])
-
+export default function Progress({ metrics, loading }) {
+  
   if (loading) {
     return (
       <>

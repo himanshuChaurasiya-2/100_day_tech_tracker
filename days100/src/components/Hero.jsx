@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo  } from 'react'
 import {API_BASE_URL} from '../config/api.js'
 import { useCountUp } from '../hooks/useCountUp.jsx'
 
@@ -28,35 +28,24 @@ function StatItem({ value, label, textColorClass }) {
   )
 }
 
-export default function Hero() {
+export default function Hero({ metrics }) {
 
-  const [liveStats, setLiveStats] = useState({
-    uniqueDays: 0,
-    totalQuestions: 0,
-    remainingDays: 100,
-  })
-
-  useEffect(() => {
-    const fetchHeroMetrics = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/progress`)
-        const data = await res.json()
-
-        const totalQ = data.miniCards?.reduce((acc, curr) => acc + (curr.value || 0), 0) || 0
-        const completed = data.daysDone || 0
-        const totalTarget = data.total || 100
-
-        setLiveStats({
-          uniqueDays: completed,
-          totalQuestions: totalQ,
-          remainingDays: Math.max(0, totalTarget - completed),
-        })
-      } catch (err) {
-        console.error('Failed fetching live hero counter metrics:', err)
-      }
+  const liveStats = useMemo(() => {
+    
+    if (!metrics) {
+      return { uniqueDays: 0, totalQuestions: 0, remainingDays: 100 };
     }
-    fetchHeroMetrics()
-  }, [])
+
+    const totalQ = metrics.miniCards?.reduce((acc, curr) => acc + (curr.value || 0), 0) || 0;
+    const completed = metrics.daysDone || 0;
+    const totalTarget = metrics.total || 100;
+
+    return {
+      uniqueDays: completed,
+      totalQuestions: totalQ,
+      remainingDays: Math.max(0, totalTarget - completed),
+    };
+  }, [metrics]);
 
   const daysDone = useCountUp(liveStats.uniqueDays, 1600, 300)
   const questions = useCountUp(liveStats.totalQuestions, 1600, 300)
