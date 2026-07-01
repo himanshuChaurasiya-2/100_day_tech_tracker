@@ -1,5 +1,6 @@
 import { useState,useEffect  } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 
 import Cursor from './components/Cursor.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -83,6 +84,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <MetaSEO challenge={activeChallenge} />
+      <Analytics />
       <Routes>
         <Route element={<BaseLayout />}>
           
